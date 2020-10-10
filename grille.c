@@ -29,3 +29,24 @@ void copie_grille (grille gs, grille gd){
 	for (i=0; i<gs.nbl; ++i) for (j=0; j<gs.nbc; ++j) gd.cellules[i][j] = gs.cellules[i][j];
 	return;	
 }
+// alloue une grille de taille l*c, et initialise toutes les cellules à mortes
+void alloue_grille (int l, int c, grille* g){
+    g ->nbl =l;
+    g -> nbc =c ;
+    g->cellules =(int**)malloc(sizeof(int*)*l);
+    for (int i=0;i<l; i++){
+    	g ->cellules[i]=(int*)malloc(sizeof(int)*c);
+    	for (int j=0;j<c;j++){
+    		g-> cellules[i][j]=0;
+    	}
+
+    }
+}
+void libere_grille (grille* g){
+	int l= g->nbl;
+	int c= g->nbc ;
+	for (int i=0; i<l ; i++){
+		 free(g-> cellules[i]);
+	}
+	free(g->cellules);
+}
