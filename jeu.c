@@ -1,4 +1,16 @@
+/**
+*@file jeu.c 
+* contient l'implémentation et signature des fonctions  nécessaires pour jouer 
+*/
+
 #include "jeu.h"
+/**
+*@fn int compte_voisins_vivants (int i, int j, grille g)
+*@param 1 \c int i 
+*@param 2 \c int j 
+*@param 2 \c griile g 
+*@return le nombre cellules voisin vivant 
+*/
 
 int compte_voisins_vivants (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
@@ -13,6 +25,13 @@ int compte_voisins_vivants (int i, int j, grille g){
 
 	return v; 
 }
+/** 
+*@fn void evolue (grille *g, grille *gc)
+*fait évoluer la grille
+*@param 1 \c grille *g 
+*@param 2 \c grille *gc 
+*@return rien 
+*/
 
 void evolue (grille *g, grille *gc){
 	copie_grille (*g,*gc); // copie temporaire de la grille

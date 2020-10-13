@@ -1,14 +1,26 @@
+/**
+*@file grille.h
+* contient le profile des fonctions relatves à une grille  
+
+*/
+
+
 #ifndef __GRILLE_H
 #define __GRILLE_H
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-
+/**
+*@typedef typedef struct {int nbl; int nbc; int** cellules;} grille;
+*declaration de la structure grille 
+*structure grille : nombre de lignes, nombre de colonnes, tableau de tableau de cellules 
+*/
 // structure grille : nombre de lignes, nombre de colonnes, tableau de tableau de cellules
 typedef struct {int nbl; int nbc; int** cellules;} grille;
  
 // alloue une grille de taille l*c, et initialise toutes les cellules à mortes
+
 void alloue_grille (int l, int c, grille* g);
 
 // libère une grille

@@ -1,4 +1,16 @@
+/**
+*@file grille.c 
+*contient l'implémentation et signature  des fonctions relatives à une grille
+*/
+
 #include "grille.h"
+/**
+*@fn void init_grille_from_file (char * filename, grille* g)
+*initialise une grille en recupérant les information nécessaires sur un fichier 
+*@param 1 \c char *filename 
+*@param 2 \c grille *g 
+*@return  rien 
+*/
 
 void init_grille_from_file (char * filename, grille* g){
 	FILE * pfile = NULL;
@@ -22,6 +34,13 @@ void init_grille_from_file (char * filename, grille* g){
 	fclose (pfile);
 	return;
 }
+/**
+*@fn copie_grille (grille gs, grille gd)
+*copie une grille dans une autre 
+*@param 1 \c grille  gs 
+*@param 2 \c grille gd 
+*@return rien 
+*/
 
 
 void copie_grille (grille gs, grille gd){
@@ -30,6 +49,15 @@ void copie_grille (grille gs, grille gd){
 	return;	
 }
 // alloue une grille de taille l*c, et initialise toutes les cellules à mortes
+
+/**
+*@fn void alloue_grille (int l, int c, grille* g)
+*alloue une grille de taille l*c, et initialise toutes les cellules à mortes
+*@param 1 \c int l 
+*@param 2 \c int c 
+*@param 3 \c grille  *g 
+*@ return rien 
+*/
 void alloue_grille (int l, int c, grille* g){
     g ->nbl =l;
     g -> nbc =c ;
@@ -37,11 +65,20 @@ void alloue_grille (int l, int c, grille* g){
     for (int i=0;i<l; i++){
     	g ->cellules[i]=(int*)malloc(sizeof(int)*c);
     	for (int j=0;j<c;j++){
-    		g-> cellules[i][j]=0;
+    		//g-> cellules[i][j]=0;
+		set_morte(i,j,*g);
+
+
     	}
 
     }
 }
+/**
+*@fn void libere_grille (grille* g)
+*libére une une grille 
+*@param \grille *g
+*@return rien
+*/
 void libere_grille (grille* g){
 	int l= g->nbl;
 	int c= g->nbc ;

@@ -1,3 +1,8 @@
+/**
+*@file jeu.h 
+*contient la signature des fonctions nécessaires pour jouer 
+*/
+
 #ifndef __JEU_H
 #define __JEU_H
 

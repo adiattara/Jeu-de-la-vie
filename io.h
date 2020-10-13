@@ -1,3 +1,8 @@
+/**
+*@file io.h 
+*contient la signature des fonctions pour l'affichage d'une grille
+*/
+
 #ifndef __IO_H
 #define __IO_H
 

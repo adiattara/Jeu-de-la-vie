@@ -1,4 +1,16 @@
+/**
+*@file io.c
+* contient l'implémentation et profile des fonctions pour l'affichage d'une grille 
+*/
+
+
 #include "io.h"
+/**
+*@fn void affiche_trait (int c)
+*@param \c int c 
+*@return  rien 
+*/
+
 
 void affiche_trait (int c){
 	int i;
@@ -6,6 +18,14 @@ void affiche_trait (int c){
 	printf("|\n");
 	return;
 }
+/**
+*@fn void affiche_ligne (int c, int* ligne)
+*@param 1 \c int c 
+*@param 2 \c int *ligne 
+*@return rien
+
+
+*/
 
 void affiche_ligne (int c, int* ligne){
 	int i;
@@ -14,6 +34,12 @@ void affiche_ligne (int c, int* ligne){
 	printf("|\n");
 	return;
 }
+/**
+*@fn affiche_grille (grille g)
+*affiche une grille en uilisant les fonctions affiche_trait  et affiche_ligne 
+*@param \c grille g 
+*@return rien  
+*/
 
 void affiche_grille (grille g){
 	int i, l=g.nbl, c=g.nbc;
@@ -26,22 +52,70 @@ void affiche_grille (grille g){
 	printf("\n"); 
 	return;
 }
+/** 
+*@fn efface_grille (grille g)
+*@param \c grille g 
+*@return rien 
+
+
+*/ 
 
 void efface_grille (grille g){
 	printf("\n\e[%dA",g.nbl*2 + 5); 
 }
+/**
+*@fn  void debut_jeu(grille *g, grille *gc)
+*@param 1 \grille *g 
+*@param 2 \ grille *gc 
+*@return rien 
+*/
 
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar(); 
+	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
+	
 	while (c != 'q') // touche 'q' pour quitter
-	{ 
+	{  
+
+	    
 		switch (c) {
 			case '\n' : 
-			{ // touche "entree" pour évoluer
-				evolue(g,gc);
-				efface_grille(*g);
-				affiche_grille(*g);
-				break;
+			{
+					if(evite_backslash){
+						evite_backslash=0;
+
+					}
+
+					
+					else{ // touche "entree" pour évoluer
+					evolue(g,gc);
+					efface_grille(*g);
+					affiche_grille(*g);
+					
+					}
+					break;
+			}
+				
+			case 'n':
+			{   
+                
+				libere_grille(g);
+				libere_grille(gc);
+				printf(" entrer le chemin complet du fichier  en partant de la racine ou du répertoir courant ");
+				char *chaine=(char *)malloc(sizeof(char)*100);
+	            scanf("%s",chaine);
+	            
+	            init_grille_from_file ( chaine,  g);
+	            alloue_grille(g->nbl,g->nbc,gc);
+                 
+	            affiche_grille(*g);
+
+	            evite_backslash=1;
+                    free(chaine);
+
+	            break;
+
+
 			}
 			default : 
 			{ // touche non traitée
@@ -49,7 +123,8 @@ void debut_jeu(grille *g, grille *gc){
 				break;
 			}
 		}
-		c = getchar(); 
+		c = getchar();
+
 	}
 	return;	
 }
