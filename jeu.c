@@ -35,7 +35,7 @@ int compte_voisins_vivants_cyclique  (int i, int j, grille g){ // modification d
  
  */
 }
-int compte_voisins_vivants_non_cyclique (int i, int j, grille g){// compte voisin de maniére non cyclique 
+int compte_voisins_vivants_non_cyclique (int i, int j, grille g){// implémentaion de compte_voisins_vivants_non_cyclique 
 int v = 0, l=g.nbl, c = g.nbc;
 
 v+= (i-1 >= 0 && j-1 >= 0) ? est_vivante(i-1,j-1,g) : 0;
