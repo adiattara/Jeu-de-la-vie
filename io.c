@@ -5,6 +5,7 @@
 
 
 #include "io.h"
+//#
 /**
 *@fn void affiche_trait (int c)
 *@param \c int c 
@@ -69,15 +70,15 @@ void efface_grille (grille g){
 *@param 2 \ grille *gc 
 *@return rien 
 */
+ int (*compte_voisins_vivants) (int, int, grille)= compte_voisins_vivants_non_cyclique;
 
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar(); 
 	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
-	
+	int tmp_evolution=0; // initialisation du temps d'évolution 
 	while (c != 'q') // touche 'q' pour quitter
 	{  
-
-	    
+    
 		switch (c) {
 			case '\n' : 
 			{
@@ -89,16 +90,18 @@ void debut_jeu(grille *g, grille *gc){
 					
 					else{ // touche "entree" pour évoluer
 					evolue(g,gc);
+				    tmp_evolution++;
 					efface_grille(*g);
 					affiche_grille(*g);
+					printf("tmp_evolution=%d",tmp_evolution);
 					
 					}
 					break;
 			}
 				
 			case 'n':
-			{   
-                
+			{   getchar();
+                tmp_evolution=0;
 				libere_grille(g);
 				libere_grille(gc);
 				printf(" entrer le chemin complet du fichier  en partant de la racine ou du répertoir courant ");
@@ -110,12 +113,26 @@ void debut_jeu(grille *g, grille *gc){
                  
 	            affiche_grille(*g);
 
+
 	            evite_backslash=1;
-                    free(chaine);
+                free(chaine);
 
 	            break;
 
 
+			}
+			case'c':{// activation ou désactivation du compte_vivant_cyclique/compte_non_cyclique
+				 
+				if (compte_voisins_vivants==compte_voisins_vivants_non_cyclique){
+					compte_voisins_vivants=compte_voisins_vivants_cyclique;
+					//printf("\e MODE CYCLIIQUE ACTIVÉ\n");
+				}
+				else if (compte_voisins_vivants==compte_voisins_vivants_cyclique){
+					compte_voisins_vivants=compte_voisins_vivants_non_cyclique;
+					//printf("\e MODE CYLIQUE DÉSACTIVÉ\n ");
+
+				}
+				break;
 			}
 			default : 
 			{ // touche non traitée
