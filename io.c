@@ -77,7 +77,7 @@ void efface_grille (grille g){
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar(); 
 	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
-	int tmp_evolution=0; // initialisation du temps d'évolution de la grille 
+	int tmp_evolution=0; // initialisation du temps d'évolution 
 	while (c != 'q') // touche 'q' pour quitter
 	{  
     
