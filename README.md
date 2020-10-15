@@ -28,6 +28,8 @@ v_0.1=implémentation des fonctions alloue_grilles et libere_grille
 
 v_1.0 = terminaison du niveau 1 et debut du niveau 2 
 
+v_1.1=activation ou désactivation du cyclique  c'est la touche 'c' dans la fonction debut_jeu
+
 
 
 
