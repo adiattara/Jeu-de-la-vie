@@ -1,6 +1,6 @@
-                                                             SYSTEME DE VERSIONAGE DE MON PROJET (JEUX DE A VIE)
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-####EXPLICATION DU SYSTEME DE VERSIONNAGE :
+# SYSTEME DE VERSIONAGE DE MON PROJET (JEUX DE A VIE)
+---------------------------------------------------------------------------------------------------------------
+#### EXPLICATION DU SYSTEME DE VERSIONNAGE :
 je divise le projet  en 6 niveuau : niveau 0 ,niveau 1,2,3,4,5
 
 niveau 0(=v_0.0) : corespond au version initale du projet aucune  modifiaction n'a été apporté sur le projet 
@@ -20,23 +20,17 @@ on suit cette logique jusqu'à ce que le niveau 5 soit terminé
 ainsi on livre  une version(v_5.0) du projet
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-###### liste des versions :
-(v_0.0)= etape intiale du projet 
+-------------------------------------------------------------------------------------------------------------
+#### liste des versions :
+v_0.0= fichier de départ 
 
-(v_1.0)= fin de l'étape 1 debut de l'étape 2 
+v_0.1=implémentation des fonctions alloue_grilles et libere_grille
 
-
-(v_2.0)=fin de l'étape 2 et debut de l'étape 3
-
-
-(v_3.0)=fin de l'étape 3 et debut de l'étape 4
+v_1.0 = terminaison du niveau 1 et debut du niveau 2 
 
 
-(v_4.0)=fin de l'étape 4 et debut de l'étape 5
 
 
-(v_5.0)= fin de l'étape 5 et marche un premiére version compléte du projet 
 
 
 
