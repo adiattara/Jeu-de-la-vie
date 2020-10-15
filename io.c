@@ -123,7 +123,7 @@ void debut_jeu(grille *g, grille *gc){
 
 
 			}
-			case'c':{// activation ou désactivation du compte_vivant_cyclique/compte_non_cyclique
+			case'c':{ // activation ou désactivation du cyclique 
 				 
 				if (compte_voisins_vivants==compte_voisins_vivants_non_cyclique){
 					compte_voisins_vivants=compte_voisins_vivants_cyclique;
