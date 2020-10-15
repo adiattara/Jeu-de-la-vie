@@ -55,6 +55,7 @@ void affiche_grille (grille g){
 }
 /** 
 *@fn efface_grille (grille g)
+*efface une grille 
 *@param \c grille g 
 *@return rien 
 
@@ -66,6 +67,7 @@ void efface_grille (grille g){
 }
 /**
 *@fn  void debut_jeu(grille *g, grille *gc)
+*marque le debut du jeu 
 *@param 1 \grille *g 
 *@param 2 \ grille *gc 
 *@return rien 
@@ -75,7 +77,7 @@ void efface_grille (grille g){
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar(); 
 	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
-	int tmp_evolution=0; // initialisation du temps d'évolution 
+	int tmp_evolution=0; // initialisation du temps d'évolution de la grille 
 	while (c != 'q') // touche 'q' pour quitter
 	{  
     
