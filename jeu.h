@@ -9,7 +9,7 @@
 #include "grille.h"
 
 // modulo modifié pour traiter correctement les bords i=0 et j=0
-// dans le calcul des voisins avec bords cycliques
+//dans le calcul des voisins avec bords cycliques
 /**
 *@fn static inline int modulo(int i, int m)
 *modulo modifié pour traiter correctement les bords i=0 et j=0
