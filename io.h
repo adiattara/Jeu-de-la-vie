@@ -1,6 +1,7 @@
 /**
 *@file io.h 
 *contient la signature des fonctions pour l'affichage d'une grille
+*@author Amadou Diattara
 */
 
 #ifndef __IO_H

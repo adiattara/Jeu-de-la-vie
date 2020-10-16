@@ -1,5 +1,6 @@
 /**
 *@file jeu.h 
+*@author Amadou Diattara
 *contient la signature des fonctions nécessaires pour jouer 
 */
 

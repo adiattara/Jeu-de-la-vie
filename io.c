@@ -1,16 +1,18 @@
 /**
 *@file io.c
+*@author Amadou Diattara
 * contient l'implémentation et profile des fonctions pour l'affichage d'une grille 
 */
 
 
 #include "io.h"
-//#
 /**
 *@fn void affiche_trait (int c)
 *@param \c int c 
 *@return  rien 
 */
+static int tmp_evolution;
+
 
 
 void affiche_trait (int c){
@@ -43,6 +45,7 @@ void affiche_ligne (int c, int* ligne){
 */
 
 void affiche_grille (grille g){
+    printf("tmp_evolution=%d",tmp_evolution);
 	int i, l=g.nbl, c=g.nbc;
 	printf("\n");
 	affiche_trait(c);
@@ -50,7 +53,7 @@ void affiche_grille (grille g){
 		affiche_ligne(c, g.cellules[i]);
 		affiche_trait(c);
 	}	
-	printf("\n"); 
+	printf("\n");
 	return;
 }
 /** 
@@ -72,18 +75,20 @@ void efface_grille (grille g){
 *@param 2 \ grille *gc 
 *@return rien 
 */
- int (*compte_voisins_vivants) (int, int, grille)= compte_voisins_vivants_non_cyclique;
+ int (*compte_voisins_vivants) (int, int, grille)= compte_voisins_vivants_cyclique;
 
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar(); 
 	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
-	int tmp_evolution=0; // initialisation du temps d'évolution 
+	tmp_evolution=0; // initialisation du temps d'évolution 
+	
 	while (c != 'q') // touche 'q' pour quitter
 	{  
     
 		switch (c) {
+			
 			case '\n' : 
-			{
+			{       
 					if(evite_backslash){
 						evite_backslash=0;
 
@@ -95,14 +100,14 @@ void debut_jeu(grille *g, grille *gc){
 				    tmp_evolution++;
 					efface_grille(*g);
 					affiche_grille(*g);
-					printf("tmp_evolution=%d",tmp_evolution);
+					
 					
 					}
 					break;
 			}
 				
 			case 'n':
-			{   getchar();
+			{  
                 tmp_evolution=0;
 				libere_grille(g);
 				libere_grille(gc);
@@ -124,14 +129,22 @@ void debut_jeu(grille *g, grille *gc){
 
 			}
 			case'c':{ // activation ou désactivation du cyclique 
+			    getchar();
 				 
 				if (compte_voisins_vivants==compte_voisins_vivants_non_cyclique){
 					compte_voisins_vivants=compte_voisins_vivants_cyclique;
-					//printf("\e MODE CYCLIIQUE ACTIVÉ\n");
+					//printf(" MODE CYCLIQUE ACTIVÉ\n");  à corriger (probléme d'affichage)
+
 				}
 				else if (compte_voisins_vivants==compte_voisins_vivants_cyclique){
 					compte_voisins_vivants=compte_voisins_vivants_non_cyclique;
-					//printf("\e MODE CYLIQUE DÉSACTIVÉ\n ");
+					//printf(" MODE CYCLIQUE DÉSACTIVÉ\n "); à corriger (probléme d'affichage)
+
+
+
+					
+					
+					
 
 				}
 				break;

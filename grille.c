@@ -1,5 +1,6 @@
 /**
 *@file grille.c 
+*@author Amadou Diattara
 *contient l'implémentation et signature  des fonctions relatives à une grille
 */
 

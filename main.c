@@ -1,5 +1,6 @@
 /**
 *@file main.c 
+*@author Amadou Diattara
 *code principal
 */
 

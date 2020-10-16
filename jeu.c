@@ -4,6 +4,8 @@
 */
 
 #include "jeu.h"
+extern int   (*compte_voisins_vivants) (int, int, grille); // pointe sur compte_voisins_vivants_cyclique/no_cyclique
+// la touche C implémenter dans debut_jeu permet de dire à notre pointeur de fonction sur quelle fonction pointé
 /**
 *@fn int compte_voisins_vivants_cyclique (int i, int j, grille g)
 *calcule le nombre de voisin en considérant que les bords de la  la grille ne sonts  pas cycliques
@@ -13,7 +15,7 @@
 *@return le nombre cellules voisins vivantes  dans le cas où les bords de la  la grille ne sonts  pas cycliques
 */
 
-int compte_voisins_vivants_cyclique  (int i, int j, grille g){ // modification du compte_voisins_vivant en compte_voisins_vivant_cyclique 
+int compte_voisins_vivants_cyclique(int i, int j, grille g){ // modification du compte_voisins_vivant en compte_voisins_vivant_cyclique 
 	int v = 0, l=g.nbl, c = g.nbc;
 	v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
 	v+= est_vivante(modulo(i-1,l),modulo(j,c),g);
@@ -66,7 +68,7 @@ void evolue (grille *g, grille *gc){
 	{
 		for (j=0; j<c; ++j)
 		{
-			v = compte_voisins_vivants_cyclique (i, j, *gc);
+			v = compte_voisins_vivants (i, j, *gc);
 			if (est_vivante(i,j,*g)) 
 			{ // evolution d'une cellule vivante
 				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);

@@ -1,5 +1,6 @@
 /**
 *@file grille.h
+*@author Amadou Diattara
 * contient le profile des fonctions relatves à une grille  
 
 */
