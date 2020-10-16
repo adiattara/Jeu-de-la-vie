@@ -12,7 +12,7 @@ jeu.o :jeu.c jeu.h grille.h
 	gcc -c -g $<
 	
 dist :
-	tar  cJvf sauve.tar.xz *.c *.h  makefile  doxygen 
+	tar  cJvf DiattaraAmadou_Gol_v_1.1.tar.xz *.c *.h  makefile  Doxyfile
 	
 clean: 
 	rm  -f  *.o
