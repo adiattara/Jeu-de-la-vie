@@ -99,6 +99,7 @@ void debut_jeu(grille *g, grille *gc){
 					evolue(g,gc);
 				    tmp_evolution++;
 					efface_grille(*g);
+					printf("\e[H\e[2J");
 					affiche_grille(*g);
 					
 					
@@ -133,12 +134,15 @@ void debut_jeu(grille *g, grille *gc){
 				 
 				if (compte_voisins_vivants==compte_voisins_vivants_non_cyclique){
 					compte_voisins_vivants=compte_voisins_vivants_cyclique;
-					//printf(" MODE CYCLIQUE ACTIVÉ\n");  à corriger (probléme d'affichage)
+					printf(" MODE CYCLIQUE ACTIVÉ\n"); // à corriger (probléme d'affichage)
 
 				}
 				else if (compte_voisins_vivants==compte_voisins_vivants_cyclique){
 					compte_voisins_vivants=compte_voisins_vivants_non_cyclique;
-					//printf(" MODE CYCLIQUE DÉSACTIVÉ\n "); à corriger (probléme d'affichage)
+					printf(" MODE CYCLIQUE DÉSACTIVÉ\n "); //à corriger (probléme d'affichage)
+				while(getchar()!='\n');
+				printf("\n\e[%dA",3);
+				break;
 
 
 
