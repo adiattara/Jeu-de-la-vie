@@ -4,8 +4,7 @@
 */
 
 #include "jeu.h"
-extern int   (*compte_voisins_vivants) (int, int, grille); // pointe sur compte_voisins_vivants_cyclique/no_cyclique
-// la touche C implémenter dans debut_jeu permet de dire à notre pointeur de fonction sur quelle fonction pointé
+
 /**
 *@fn int compte_voisins_vivants_cyclique (int i, int j, grille g)
 *calcule le nombre de voisin en considérant que les bords de la  la grille ne sonts  pas cycliques
@@ -61,14 +60,15 @@ return v;
 *@return rien 
 */
 
-void evolue (grille *g, grille *gc){
+void evolue_sans_vieillissement (grille *g, grille *gc ,int (*cyclique_ou_non)(int,int,grille)){
 	copie_grille (*g,*gc); // copie temporaire de la grille
 	int i,j,l=g->nbl, c = g->nbc,v;
 	for (i=0; i<l; i++)
 	{
 		for (j=0; j<c; ++j)
 		{
-			v = compte_voisins_vivants (i, j, *gc);
+			v = (*cyclique_ou_non) (i, j, *gc); // valeur de retour de la fonction et non l'adresse de la de la fonction il pointe
+
 			if (est_vivante(i,j,*g)) 
 			{ // evolution d'une cellule vivante
 				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
@@ -81,3 +81,25 @@ void evolue (grille *g, grille *gc){
 	}
 	return;
 }
+void evolue_avec_vieillissement (grille *g, grille *gc, int (*cyclique_ou_non)(int,int,grille)){
+  copie_grille (*g,*gc); // copie temporaire de la grille
+  int i,j,l=g->nbl, c = g->nbc,v;
+  for (i=0; i<l; i++)
+    {
+      for (j=0; j<c; ++j)
+				{
+	  			v = (*cyclique_ou_non)(i, j, *gc);
+	  			if (est_vivante(i,j,*g))
+	    			{ // evolution d'une cellule vivante
+	      			if ( v!=2 && v!= 3 ) set_morte(i,j,*g); // si elle a moins de deux ou plus de trois voisins elle meurt
+	      			else if (g->cellules[i][j] > 8) set_morte(i,j,*g);// on suppose que age-cel >= 1000 elle meurt
+	      			else {g->cellules[i][j]++;} // sinon on incrémente son age++
+	    			}
+	  			else
+	    			{ // evolution d'une cellule morte
+	      			if ( v==3 ) set_vivante(i,j,*g);// si elle a exactement 3 voisins alors elle nait
+	    			}
+				}
+    }
+}
+
