@@ -75,34 +75,46 @@ void efface_grille (grille g){
 *@param 2 \ grille *gc 
 *@return rien 
 */
- int (*compte_voisins_vivants) (int, int, grille)= compte_voisins_vivants_cyclique;
+ 
 
 void debut_jeu(grille *g, grille *gc){
+	int (*compte_voisins_vivants) (int, int, grille)= &compte_voisins_vivants_cyclique;
+    void (*evolue)(grille *g,grille *gc ,int(*fonction)(int,int,grille))=&evolue_sans_vieillissement;
+
 	char c = getchar(); 
 	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
 	tmp_evolution=0; // initialisation du temps d'évolution 
 	
-	while (c != 'q') // touche 'q' pour quitter
-	{  
+	while (c != 'q'){ // touche 'q' pour quitter
     
 		switch (c) {
-			
+			case 'v':
+			{
+				if(evolue==&evolue_sans_vieillissement){
+	        		evolue=&evolue_avec_vieillissement;
+					printf("VIEILLISSEMENT ACTIVÉ");
+
+	     		}
+				else{
+					evolue=&evolue_sans_vieillissement;
+					printf("VIEILLISSEMENT DÉSACTIVÉ");
+				}
+				while(getchar()!='\n');
+				printf("\n\e[%dA",3);
+				break;
+			}
 			case '\n' : 
 			{       
 					if(evite_backslash){
 						evite_backslash=0;
 
 					}
-
-					
 					else{ // touche "entree" pour évoluer
-					evolue(g,gc);
+					evolue(g,gc,compte_voisins_vivants);
 				    tmp_evolution++;
 					efface_grille(*g);
 					printf("\e[H\e[2J");
 					affiche_grille(*g);
-					
-					
 					}
 					break;
 			}
@@ -129,38 +141,30 @@ void debut_jeu(grille *g, grille *gc){
 
 
 			}
-			case'c':{ // activation ou désactivation du cyclique 
+			case 'c':{ // activation ou désactivation du cyclique 
 			    getchar();
 				 
-				if (compte_voisins_vivants==compte_voisins_vivants_non_cyclique){
-					compte_voisins_vivants=compte_voisins_vivants_cyclique;
-					printf(" MODE CYCLIQUE ACTIVÉ\n"); // à corriger (probléme d'affichage)
+				if (compte_voisins_vivants== &compte_voisins_vivants_non_cyclique){
+					compte_voisins_vivants=&compte_voisins_vivants_cyclique;
+					printf(" MODE CYCLIQUE ACTIVÉ\n");
 
 				}
-				else if (compte_voisins_vivants==compte_voisins_vivants_cyclique){
-					compte_voisins_vivants=compte_voisins_vivants_non_cyclique;
-					printf(" MODE CYCLIQUE DÉSACTIVÉ\n "); //à corriger (probléme d'affichage)
+				else {
+					compte_voisins_vivants=&compte_voisins_vivants_non_cyclique;
+					printf(" MODE CYCLIQUE DÉSACTIVÉ\n "); 
+				}
 				while(getchar()!='\n');
 				printf("\n\e[%dA",3);
 				break;
 
-
-
-					
-					
-					
-
-				}
-				break;
 			}
+			
 			default : 
 			{ // touche non traitée
 				printf("\n\e[1A");
 				break;
 			}
 		}
-		c = getchar();
-
+         c = getchar();
 	}
-	return;	
 }
