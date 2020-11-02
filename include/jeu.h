@@ -26,6 +26,6 @@ int compte_voisins_vivants_cyclique(int i, int j, grille g); // compte voisin vi
 int compte_voisins_vivants_non_cyclique (int i, int j, grille g);// done by me 
 
 // fait évoluer la grille g d'un pas de temps
-void evolue (grille *g, grille *gc);
-
+void evolue_sans_vieillissement (grille *g, grille *gc ,int (*compte_voisins_vivants)(int,int,grille));
+void evolue_avec_vieillissement (grille *g, grille *gc, int (*compte_voisins_vivants)(int,int,grille));
 #endif
