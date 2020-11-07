@@ -79,7 +79,7 @@ void efface_grille (grille g){
 
 void debut_jeu(grille *g, grille *gc){
 	int (*compte_voisins_vivants) (int, int, grille)= &compte_voisins_vivants_cyclique;
-    void (*evolue)(grille *g,grille *gc ,int(*fonction)(int,int,grille))=&evolue_sans_vieillissement;
+    void (*evolue)(grille *g,grille *gc ,int(*fonction)(int,int,grille))=&evolue_avec_vieillissement;
 
 	char c = getchar(); 
 	int evite_backslash=0;// on tape n puis "\n" du coup on doit éviter le back slah d'ou l'utilité de cette variable 
