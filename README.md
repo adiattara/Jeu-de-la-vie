@@ -30,6 +30,14 @@ v_1.0 = terminaison du niveau 1 et debut du niveau 2
 
 v_1.1=activation ou désactivation du cyclique  c'est la touche 'c' dans la fonction debut_jeu
 
+v_2.0=niveau 2 terminé passage niveau 3
+
+v_2.1=makefile amélioré utilisation de vpath ,option -I pour gcc
+
+v_2.1.1= programmation de la fonction évolue_avec_vieillissement
+
+v_2.1.2= correction bug vieilleissement
+
 
 
 
