@@ -87,6 +87,7 @@ void efface_grille (grille g){
  
 
 void debut_jeu(grille *g, grille *gc){
+	affiche_grille(*g);
 	int (*compte_voisins_vivants) (int, int, grille)= &compte_voisins_vivants_cyclique;
     void (*evolue)(grille *g,grille *gc ,int(*fonction)(int,int,grille))=&evolue_avec_vieillissement;
 
