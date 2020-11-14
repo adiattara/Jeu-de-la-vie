@@ -82,6 +82,40 @@ void affiche_grille_graphique(cairo_surface_t *surface, grille g)
 	cairo_select_font_face (cr, "Ubuntu", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
     // choix taille police 
 	cairo_set_font_size (cr, TEXTSIZE1);
+	// AFFICHAGE TEXTE ETAT
+
+		// Temps d'évolutiion 
+	cairo_set_source_rgb(cr, 0.0, 0.0, 0.0); 
+	cairo_move_to(cr, 0, TEXTSIZE1);
+	sprintf(strTemps, "%d", Evolution);
+	strcpy(varChar, "Temps d'évolution : ");
+	cairo_show_text(cr, strcat(varChar, strTemps));
+
+		// Vieillissement
+	cairo_move_to(cr, 0, 2*TEXTSIZE1);
+	if(evolue==evolue_avec_vieillissement ) cairo_show_text(cr, "Vieillissement activé : oui");
+	else cairo_show_text(cr, "Vieillissement activé : non");
+	// Cyclique
+	cairo_move_to(cr, 0, 3*TEXTSIZE1);
+	if(compte_voisins_vivants==compte_voisins_vivants_cyclique) cairo_show_text(cr, "Calcul cyclique du voisinage activé : oui");
+	else cairo_show_text(cr, "Calcul cyclique du voisinage activé : non");
+	cairo_move_to(cr, 41*TEXTSIZE1, 0.9*TEXTSIZE1);
+	
+	// TEXTFIELD INPUTBOX
+
+	 // fond 
+	cairo_rectangle(cr,41*TEXTSIZE1,SIZEF/30,16*TEXTSIZE1,1*TEXTSIZE1);
+	(nvGrilleFocus == 1)?(cairo_set_source_rgb(cr, 0.0, 0.0, 0.0)):(cairo_set_source_rgb(cr, 1., 1, 1));
+	cairo_fill(cr);
+	cairo_stroke(cr);
+	// texte
+	(nvGrilleFocus == 1)?(cairo_set_source_rgb(cr, 1, 1, 1)):(cairo_set_source_rgb(cr, 0.0, 0.0, 0.0));
+	cairo_move_to(cr, 41*TEXTSIZE1, 1.8*TEXTSIZE1);
+	cairo_show_text(cr, "Chemin vers la grille à charger :");
+	cairo_move_to(cr, 41*TEXTSIZE1, 2.9*TEXTSIZE1);
+	cairo_select_font_face (cr, "Courrier", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+	cairo_show_text(cr, cheminFichier);
+	// FIN TEXTFIELD INPUTBOX
 
 	
 	// DESSIN DE LA GRILLE
@@ -91,12 +125,12 @@ void affiche_grille_graphique(cairo_surface_t *surface, grille g)
 				cairo_set_source_rgb (cr, 0.1, 0.3, 0.1); // contour des cases blanc (S'ACTIVE/DESACTIVE AVEC X)
 			else
 				cairo_set_source_rgb (cr, 0, 0.1, 0); // contour des cases invisible (plus agréable)
-				
+
 			cairo_rectangle(cr,c*SIZECASEX,i*SIZECASEY+TEXTAREA,SIZECASEX,SIZECASEY); // on crée une case au bon emplacement
 			
 			for(int v = 1; v<=8; v++) { // couleur de la cellules en fonction de sa vie, plus elle se rapproche de 8 plus elle vire vers vers la couleur du fond
 				if(g.cellules[i][c] == v){
-				cairo_set_source_rgb (cr, 0.1,1-(0.111*((float)v)), 0.1); // 0.111 c'est le pas (= 1/9, pour avancer progressivement)
+				cairo_set_source_rgb (cr, 0.1,(0.7*((float)v)), 0.1); // 0.111 c'est le pas (= 1/9, pour avancer progressivement)
 				cairo_fill(cr);}
 			}
 			
@@ -171,6 +205,83 @@ void debut_jeu(grille *g, grille *gc){
 		if(e.type==Expose && e.xexpose.count<1) 
 		{
 			affiche_grille_graphique(cs, *g);
+		}
+		//évolue
+		//1 == clic gauche, 36 = touche Entrée
+		else if((e.type==ButtonPress && e.xbutton.button == 1) || (e.type==KeyPress && e.xkey.keycode==36))
+		{
+			evolue(g,gc, compte_voisins_vivants);
+			Evolution++;
+			affiche_grille_graphique(cs, *g);
+		}
+		
+		// activer/désactiver le calcul de voisinage cyclique (activé par défaut)
+		if(e.type==KeyPress && e.xkey.keycode==54) // 54 = c
+		{
+			(compte_voisins_vivants == compte_voisins_vivants_cyclique)?(compte_voisins_vivants = compte_voisins_vivants_non_cyclique):(compte_voisins_vivants = compte_voisins_vivants_cyclique);
+			affiche_grille_graphique(cs, *g);
+		}
+		
+		// activer/désactiver le vieillissement
+		if(e.type==KeyPress && e.xkey.keycode==55) // 55 = v
+		{
+			(evolue==&evolue_sans_vieillissement)?(evolue=&evolue_avec_vieillissement) :(evolue=evolue_sans_vieillissement);
+			affiche_grille_graphique(cs, *g);
+		}
+
+		
+		// activer/désactiver l'affichage du contour des grilles
+		if(e.type==KeyPress && e.xkey.keycode==53) // 53 = x
+		{ 
+			(contourCase==1)?(contourCase=0):(contourCase=1);
+			affiche_grille_graphique(cs, *g);
+		}
+        
+		
+		// charger nouvelle grille
+		if(e.type==KeyPress && e.xkey.keycode==57) // 57 = n
+		{
+			KeySym key;		/* a dealie-bob to handle KeyPress Events */	
+			char carac[256];
+			nvGrilleFocus = 1;
+			while(1)
+			{
+				XNextEvent(dpy, &e);
+							if (e.type==KeyPress && XLookupString(&e.xkey,carac,256,&key,0)==1) 
+							{
+								if(e.xkey.keycode == 36) // Entrée
+								{
+									nvGrilleFocus=0;
+					                libere_grille(g);
+					                libere_grille(gc);
+									init_grille_from_file(cheminFichier, g);
+									alloue_grille(g->nbl, g->nbc, gc);
+									SIZECASEX = SIZEF/((g->nbc));
+									SIZECASEY = (SIZEF-TEXTAREA)/((g->nbl));
+									Evolution = 0;
+									//oscillation = 0;
+									affiche_grille_graphique(cs, *g);
+									break;
+								}
+								else if (e.xkey.keycode == 22) // Suppr
+								{
+									cheminFichier[strlen(cheminFichier)-1] = '\0'; //on suppr le dernier élément
+								}
+								else if (e.xkey.keycode == 9) // Echap
+								{
+									nvGrilleFocus=0; // on fait perdre le focus à l'inputbox
+									affiche_grille_graphique(cs, *g);
+									break;
+								}
+
+								else
+								{
+									strcat(cheminFichier, carac); // on ajoute le caractère tapé à la chaîne
+								}
+							}
+							affiche_grille_graphique(cs, *g);
+			}
+
 		}
 		// on peut quitter avec q, et le clic droit
 		if((e.type==KeyPress && e.xkey.keycode==38) || (e.type==ButtonPress && e.xbutton.button == 3)) // 38 = q

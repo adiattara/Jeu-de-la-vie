@@ -37,3 +37,5 @@ v_2.1=makefile amélioré utilisation de vpath ,option -I pour gcc
 v_2.1.1= programmation de la fonction évolue_avec_vieillissement
 
 v_2.1.2= correction bug vieilleissement
+
+v_3.0 =niveau 3 achevé debut de niveau 4 
