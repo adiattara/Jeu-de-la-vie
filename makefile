@@ -6,6 +6,9 @@ vpath %.h include
 
 ifeq ($(MODE),TEXTE)
 main : main.o jeu.o grille.o io.o
+	ar -crv	libjeu.a	jeu.o	io.o	grille.o
+	mkdir -p lib
+	mv libjeu.a lib
 	$(CC) -o $@  $^
 	mkdir -p bin 
 	mv $@ bin
@@ -27,6 +30,9 @@ jeu.o :jeu.c jeu.h grille.h
 else
 
 main : main.o jeu.o grille.o io_graph.o
+	ar -crv	libjeu.a	jeu.o	io_graph.o	grille.o
+	mkdir -p lib
+	mv libjeu.a lib
 	$(CC) -o $@  $^ -lcairo -lm -lX11
 	mkdir -p bin 
 	mv $@ bin
