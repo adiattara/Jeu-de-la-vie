@@ -19,13 +19,27 @@
 *@param 2 \c int j
  */
 static inline int modulo(int i, int m) {return (i+m)%m;}
-
-// compte le nombre de voisins vivants de la cellule (i,j)
-// les bords sont cycliques.
+/**
+*compte le nombre de voisins vivants de la cellule (i,j)
+* les bords sont cycliques.
+**/
 int compte_voisins_vivants_cyclique(int i, int j, grille g); // compte voisin vivant de maniére cyclique 
+
+/**
+*compte le nombre de voisins vivants de la cellule (i,j)
+* les bords sont  non cycliques.
+**/
 int compte_voisins_vivants_non_cyclique (int i, int j, grille g);// done by me 
 
-// fait évoluer la grille g d'un pas de temps
+/**
+*fait évoluer la grille g d'un pas de temps
+* sans vieillissement 
+**/
 void evolue_sans_vieillissement (grille *g, grille *gc ,int (*compte_voisins_vivants)(int,int,grille));
+
+/**
+*fait évoluer la grille g d'un pas de temps
+* avec  vieillissement 
+**/
 void evolue_avec_vieillissement (grille *g, grille *gc, int (*compte_voisins_vivants)(int,int,grille));
 #endif

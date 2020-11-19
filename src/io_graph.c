@@ -41,7 +41,7 @@ int  Evolution = 0;
 char strTemps[5];
 
 
- //brief Variable à afficher
+ // Variable à afficher
 
 char varChar[256];
 
@@ -60,9 +60,16 @@ char cheminFichier[255];
 int nvGrilleFocus = 0;
 
 
-//brief Détermine si on veut le contour des cases (activé par défaut)
+// Détermine si on veut le contour des cases (activé par défaut)
 int contourCase = 1;
 
+
+/**
+*@fn affiche_grille_graphique(cairo_surface_t *surface, grille g)
+*dessine une grille en utilisant la librairie cairo 
+*@param \c grille g  \c cairo_surface_t *surface 
+*@return rien  
+**/
 
 
 
@@ -156,6 +163,13 @@ void affiche_grille_graphique(cairo_surface_t *surface, grille g)
 	
 	cairo_destroy(cr); // destroy cairo mask	
 }
+/**
+*@fn  void debut_jeu(grille *g, grille *gc)
+*marque le debut du jeu  avec ouverture d'une fenétre 
+*@param 1 \grille *g 
+*@param 2 \ grille *gc 
+*@return rien 
+**/
 
 
 void debut_jeu(grille *g, grille *gc){

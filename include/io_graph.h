@@ -25,11 +25,13 @@
 
 double SIZECASEX; // taille des cases définie dynamiquement en fonction du nombre des cases (permet de charger de grandes grilles)
 double SIZECASEY; // pour gérer le cas où la grille chargée n'est pas carrée
-
-// affichage d'une grille
+/**
+*affichage graphique  d'une grille
+**/
 void affiche_grille_graphique(cairo_surface_t *surface, grille g);
-
-// debute le jeu
+/**
+* debute le jeu
+**/
 void debut_jeu(grille *g, grille *gc);
 
 #endif

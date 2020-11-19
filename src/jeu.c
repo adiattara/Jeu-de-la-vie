@@ -53,8 +53,8 @@ return v;
 
 
 /** 
-*@fn void evolue (grille *g, grille *gc)
-*fait évoluer la grille
+*@fn void evolue_sans_vieillissement(grille *g, grille *gc)
+*fait évoluer la grille  sans tenir compte du vieillisement des cellules
 *@param 1 \c grille *g 
 *@param 2 \c grille *gc 
 *@return rien 
@@ -81,6 +81,14 @@ void evolue_sans_vieillissement (grille *g, grille *gc ,int (*cyclique_ou_non)(i
 	}
 	return;
 }
+/** 
+*@fn void evolue_avec_viellissement(grille *g, grille *gc)
+*fait évoluer la grille en tenant en compte du viellissement des cellules 
+*@param 1 \c grille *g 
+*@param 2 \c grille *gc 
+*@return rien 
+*/
+
 void evolue_avec_vieillissement (grille *g, grille *gc, int (*cyclique_ou_non)(int,int,grille)){
   copie_grille (*g,*gc); // copie temporaire de la grille
   int i,j,l=g->nbl, c = g->nbc,v;
