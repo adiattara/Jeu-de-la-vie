@@ -42,13 +42,13 @@ jeu.o :jeu.c jeu.h grille.h
 
 	
 dist :
-	tar  cJvf DiattaraAmadou_Gol_v_1.1.tar.xz src/*.c include/*.h  makefile  Doxyfile
+	tar  cJvf DiattaraAmadou_Gol_v_4.1.tar.xz src/*.c include/*.h  makefile	Doxyfile
 	
 clean: 
 	rm -r obj bin
 docs :
-	doxygen -g 
-	makdir -p doc 
-	mv Doxyfile doc
+	@mkdir -p doc
+	doxygen
+	mv html latex doc
 	
 
