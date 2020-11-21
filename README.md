@@ -1,4 +1,4 @@
-# SYSTEME DE VERSIONAGE DE MON PROJET (JEUX DE A VIE)
+# SYSTEME DE VERSIONAGE DE MON PROJET (JEUX DE lA VIE)
 ---------------------------------------------------------------------------------------------------------------
 #### EXPLICATION DU SYSTEME DE VERSIONNAGE :
 je divise le projet  en 6 niveuau : niveau 0 ,niveau 1,2,3,4,5
@@ -39,3 +39,9 @@ v_2.1.1= programmation de la fonction évolue_avec_vieillissement
 v_2.1.2= correction bug vieilleissement
 
 v_3.0 =niveau 3 achevé debut de niveau 4 
+
+v_3.1=dessin grille,programmation fenétre ,clic souris pour quitter
+
+v_4.0= niveau 4 achevé et debut niveau 5
+
+v_4.1= mise à jour du makefile
